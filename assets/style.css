@@ -382,24 +382,3 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
   .js .reveal,.js .hero-in{opacity:1;transform:none;filter:none}
   .hero-media img{transform:none}
 }
-
-/* ---------- Hero Reflector: alb-negru, cercul de lumină (ales de Paul, 21 nov) ---------- */
-.hero.hv-d{background:#0e0c0b}
-.hv-d .hero-media img{filter:grayscale(1) contrast(1.05);object-position:60% 30%}
-.hv-d .hero-media::after{background:linear-gradient(180deg,rgba(14,12,11,.5) 0%,rgba(14,12,11,0) 22%,rgba(14,12,11,0) 52%,rgba(14,12,11,.9) 82%,#0e0c0b 100%)}
-.hv-d .hero-title{font-weight:300}
-.hv-d .hero-script{color:#e9d6c8}
-.hv-d .eyebrow{color:#cbb3a3}
-.hv-d .seal{background:var(--white);color:var(--ink)}
-.hv-d .seal text{fill:var(--bordo)}
-@media (min-width:1024px){
-  .hv-d .hero-media{width:min(60%,1000px);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%);mask-image:linear-gradient(90deg,transparent 0,#000 38%)}
-  .hv-d .hero-media::after{background:
-    linear-gradient(90deg,#0e0c0b 0%,rgba(14,12,11,.6) 20%,rgba(14,12,11,0) 45%),
-    linear-gradient(180deg,rgba(14,12,11,.45) 0%,rgba(14,12,11,0) 20%,rgba(14,12,11,0) 78%,rgba(14,12,11,.7) 100%)}
-  .hv-d .hero-title{font-style:italic;text-transform:none;letter-spacing:-.01em;font-size:clamp(5rem,8.6vw,9rem);line-height:.86}
-  .hv-d .hero-script{font-style:normal;margin-left:2.2em}
-}
-@media (max-width:1023px){
-  .hv-d .hero-title{font-style:italic;text-transform:none;letter-spacing:-.01em}
-}
