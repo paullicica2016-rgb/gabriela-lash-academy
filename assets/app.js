@@ -28,20 +28,40 @@
   const priceLabel = c => c.priceMax ? `${new Intl.NumberFormat("ro-RO").format(c.price)}–${lei(c.priceMax)}` : lei(c.price);
   function renderCourses(filter = "all") {
     const list = G.courses.filter(c => filter === "all" || c.group === filter);
-    $("#courseList").innerHTML = list.map((c, i) => `
-      <li class="crow reveal" data-details="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)}, ${esc(c.days)}. Vezi detalii">
-        <span class="crow-num">${String(i + 1).padStart(2, "0")}</span>
-        <div class="crow-thumb"><img src="${img(c.img)}" alt="" loading="lazy"></div>
-        <span class="crow-meta">${esc(c.tag)}</span>
-        <h3>${esc(c.name)}${c.accredited ? '<span class="tag-acc">acreditat</span>' : ""}</h3>
-        <span class="crow-next">${esc(G.next[c.dates])}</span>
-        <div class="crow-price">${c.full
-          ? `<b>${lei(c.full)}</b><s>${lei(c.price)}</s><small>la plata integrală · avans ${lei(c.advance)}</small>`
-          : `<b>${priceLabel(c)}</b><small>avans ${lei(c.advance)}</small>`}</div>
-        <span class="crow-go">${arrow}</span>
+    const rail = $("#courseList");
+    rail.innerHTML = list.map((c, i) => `
+      <li class="ccard" data-details="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)}, ${esc(c.days)}. Vezi detalii">
+        <div class="ccard-img">
+          <img src="${img(c.img)}" alt="" loading="lazy">
+          <span class="ccard-tag">${esc(c.tag)}</span>
+          <span class="ccard-num">${String(i + 1).padStart(2, "0")}</span>
+          ${c.accredited ? '<span class="ccard-acc">Acreditat</span>' : ""}
+        </div>
+        <div class="ccard-body">
+          <h3>${esc(c.name)}</h3>
+          <span class="ccard-next">${esc(G.next[c.dates])}</span>
+          <div class="ccard-foot">
+            <div class="ccard-price">${c.full
+              ? `<b>${lei(c.full)}</b><s>${lei(c.price)}</s><small>integral · avans ${lei(c.advance)}</small>`
+              : `<b>${priceLabel(c)}</b><small>avans ${lei(c.advance)}</small>`}</div>
+            <button class="btn ccard-book" data-book="${c.id}" type="button">${c.request ? "Formular" : "Rezervă"}</button>
+          </div>
+        </div>
       </li>`).join("");
-    watch($("#courseList"));
+    rail.scrollLeft = 0;
+    updateRail();
   }
+  function updateRail() {
+    const rail = $("#courseList"), cards = rail.children;
+    if (!cards.length) return;
+    const step = cards[0].offsetWidth + 14;
+    const i = Math.min(cards.length - 1, Math.round(rail.scrollLeft / step));
+    $("#railCount").innerHTML = `${String(i + 1).padStart(2, "0")} <i>/ ${String(cards.length).padStart(2, "0")}</i>`;
+    const max = rail.scrollWidth - rail.clientWidth;
+    $("#railBar").style.width = `${max > 0 ? Math.max(100 / cards.length, (rail.scrollLeft / max) * 100) : 100}%`;
+  }
+  $("#courseList").addEventListener("scroll", updateRail, { passive: true });
+  addEventListener("resize", updateRail);
   renderCourses();
   $$(".chip").forEach(t => t.addEventListener("click", () => {
     $$(".chip").forEach(x => { x.classList.toggle("is-on", x === t); x.setAttribute("aria-selected", x === t); });
@@ -49,14 +69,26 @@
   }));
 
   /* calendar */
-  $("#calGrid").innerHTML = G.calendar.map((r, i) => `
-    <article class="mcard reveal">
-      <span class="mnum">${String(i + 1).padStart(2, "0")}</span>
-      <h3>${r.m.replace(" 2027", "")}</h3>
-      <div class="mline"><small>Extensii</small><span>${r.ext}</span></div>
-      <div class="mline"><small>Laminare</small><span>${r.lam.join(" · ")}</span></div>
-      <span class="seats">2 locuri / grupă</span>
-    </article>`).join("");
+  /* „30, 31 ianuarie și 1 februarie” → [{d:30,m:"ian"},{d:31,m:"ian"},{d:1,m:"feb"}] */
+  const MON = { ianuarie: "ian", februarie: "feb", martie: "mar", aprilie: "apr", mai: "mai", iunie: "iun" };
+  const parseDays = txt => {
+    const out = [], toks = txt.match(/\d+|[a-zăâîșț]+/gi) || [];
+    let pend = [];
+    toks.forEach(t => { if (/^\d+$/.test(t)) pend.push(+t); else if (MON[t.toLowerCase()]) { pend.forEach(d => out.push({ d, m: MON[t.toLowerCase()] })); pend = []; } });
+    return out;
+  };
+  const dayHtml = ds => ds.map(x => `<span class="day"><b>${x.d}</b><small>${x.m}</small></span>`).join("");
+  $("#calGrid").innerHTML = G.calendar.map((r, i) => {
+    const month = r.m.replace(" 2027", "");
+    const ext = parseDays(r.ext), lam = r.lam.flatMap(parseDays);
+    return `
+    <li class="mrow reveal${i === 0 ? " is-next" : ""}">
+      <div class="mhead"><span class="mn">${String(i + 1).padStart(2, "0")}</span><h3>${month}</h3><span class="my">2027</span></div>
+      ${i === 0 ? '<span class="mflag">Următoarea grupă</span>' : ""}
+      <div class="mgroup"><small>Extensii 1-3D <em>${r.ext}</em></small><div class="days days--ext" aria-label="Extensii: ${esc(r.ext)}">${dayHtml(ext)}</div></div>
+      <div class="mgroup"><small>Laminare <em>2 locuri / grupă</em></small><div class="days" aria-label="Laminare: ${esc(r.lam.join(", "))}">${dayHtml(lam)}</div></div>
+    </li>`;
+  }).join("");
 
   /* reel + mosaic */
   $("#reel").innerHTML = G.videos.map(v => `
@@ -98,7 +130,7 @@
     if (z) { lb.querySelector("img").src = img(z.dataset.zoom); lb.showModal(); }
   });
   document.addEventListener("keydown", e => {
-    const d = e.target.closest?.("[data-details]");
+    const d = e.target.closest?.("[data-details]"); if (e.target.closest?.("button")) return;
     if (d && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openDetails(d.dataset.details); }
   });
 

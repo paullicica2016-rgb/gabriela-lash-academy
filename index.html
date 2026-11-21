@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=9">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -121,7 +121,12 @@
     <button class="chip" data-filter="lam" role="tab" aria-selected="false">Laminare</button>
     <button class="chip" data-filter="practica" role="tab" aria-selected="false">Zi de practică</button>
   </div>
-  <ol class="course-list" id="courseList"></ol>
+  <ol class="course-rail" id="courseList"></ol>
+  <div class="rail-meta" aria-hidden="true">
+    <span class="rail-count" id="railCount">01 <i>/ 09</i></span>
+    <span class="rail-bar"><span id="railBar"></span></span>
+    <span class="rail-hint">Glisează →</span>
+  </div>
   <p class="fine">Cursul de bază 1-3D poate include diplomă acreditată (opțional, 1.200 lei). Celelalte programe sunt de specializare și perfecționare, neacreditate, cu certificat de participare.</p>
 </section>
 
@@ -155,7 +160,11 @@
     </div>
     <p class="sec-sub reveal">Două locuri pe grupă. Russian Volume, efectele speciale și tehnica pe bandă se programează la cerere.</p>
   </div>
-  <div class="cal-grid" id="calGrid"></div>
+  <ol class="agenda" id="calGrid"></ol>
+  <div class="cal-foot reveal">
+    <p>Extensiile se fac în 3 zile consecutive, laminarea într-o singură zi. Maximum 2 cursante în fiecare grupă.</p>
+    <a class="btn btn-ghost" href="#cursuri">Rezervă un loc <span class="arr" aria-hidden="true">→</span></a>
+  </div>
 </section>
 
 <!-- REZULTATE -->
@@ -281,6 +290,6 @@
 
 <script>requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add("is-ready")))</script>
 <script src="assets/data.js?v=6"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="assets/app.js?v=7"></script>
 </body>
 </html>

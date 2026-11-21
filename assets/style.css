@@ -145,23 +145,36 @@ body.is-ready .next{transition-delay:.52s}
 .chip.is-on{background:var(--ink);border-color:var(--ink);color:var(--white)}
 .chip.is-on sup{color:var(--nude)}
 
-/* lista de cursuri */
-.course-list{list-style:none;border-top:1px solid var(--line)}
-.crow{position:relative;display:grid;grid-template-columns:84px 1fr;gap:4px 18px;padding:22px 0;border-bottom:1px solid var(--line);cursor:pointer;transition-property:background-color;transition-duration:.35s}
-.crow-thumb{grid-row:span 3;width:84px;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:var(--sand)}
-.crow-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
-.crow-num{display:none}
-.crow-meta{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--caramel)}
-.crow h3{font-size:1.7rem;font-weight:400;line-height:1.05}
-.crow-next{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--cocoa);font-variant-numeric:lining-nums}
-.crow-next::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--bordo);flex:none}
-.crow-price{grid-column:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:6px;font-variant-numeric:lining-nums tabular-nums}
-.crow-price b{font-family:var(--serif);font-weight:500;font-size:1.65rem;color:var(--bordo)}
-.crow-price s{color:var(--muted);font-size:.9rem}
-.crow-price small{width:100%;font-size:.76rem;color:var(--muted)}
-.crow-go{display:none}
-.crow .tag-acc{display:inline-block;margin-left:8px;padding:3px 10px;border-radius:999px;background:var(--sand);color:var(--bordo);font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;vertical-align:middle}
-.crow:hover .crow-thumb img{transform:scale(1.06)}
+/* cursuri: carduri cu poza lucrării (pe telefon se glisează) */
+.course-rail{list-style:none;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:6px calc(var(--pad)*-1) 0;padding:6px var(--pad) 22px;scroll-padding-inline:var(--pad);scrollbar-width:none;overscroll-behavior-x:contain}
+.course-rail::-webkit-scrollbar{display:none}
+.ccard{flex:0 0 min(84%,360px);scroll-snap-align:start;display:flex;flex-direction:column;border-radius:22px;background:var(--white);box-shadow:0 0 0 1px var(--line),0 30px 50px -40px rgba(43,32,27,.55);overflow:hidden;cursor:pointer;
+  transition-property:transform,box-shadow;transition-duration:.35s;transition-timing-function:var(--ease)}
+.ccard:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--line),0 36px 60px -36px rgba(43,32,27,.6)}
+.ccard-img{position:relative;aspect-ratio:4/3.6;overflow:hidden;background:var(--sand);margin:8px 8px 0;border-radius:16px}
+.ccard-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.ccard:hover .ccard-img img{transform:scale(1.05)}
+.ccard-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,26,21,.35),rgba(36,26,21,0) 40%)}
+.ccard-tag{position:absolute;z-index:1;top:12px;left:12px;max-width:calc(100% - 24px);padding:7px 12px;border-radius:999px;background:rgba(255,253,251,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccard-acc{position:absolute;z-index:1;bottom:12px;left:12px;display:flex;align-items:center;gap:6px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--bordo);color:var(--white);font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.ccard-acc::before{content:"✦";font-size:.7rem;color:var(--nude)}
+.ccard-num{position:absolute;z-index:1;top:8px;right:14px;font-family:var(--serif);font-style:italic;font-size:2rem;color:var(--white);text-shadow:0 2px 12px rgba(0,0,0,.35);font-variant-numeric:lining-nums}
+.ccard-body{flex:1;display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px}
+.ccard h3{font-size:1.75rem;font-weight:400;line-height:1.04}
+.ccard-next{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--cocoa);font-variant-numeric:lining-nums}
+.ccard-next::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--bordo);flex:none}
+.ccard-foot{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.ccard-price{display:grid;font-variant-numeric:lining-nums tabular-nums;line-height:1.15}
+.ccard-price b{font-family:var(--serif);font-weight:500;font-size:1.8rem;color:var(--bordo);line-height:1}
+.ccard-price s{font-size:.82rem;color:var(--muted);margin-top:4px}
+.ccard-price small{font-size:.74rem;color:var(--muted)}
+.ccard-book{flex:none;min-height:44px;padding:0 18px;font-size:.84rem}
+.rail-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:.78rem;color:var(--muted)}
+.rail-count{font-family:var(--serif);font-size:1.15rem;color:var(--ink);font-variant-numeric:lining-nums tabular-nums}
+.rail-count i{font-style:normal;color:var(--muted)}
+.rail-bar{flex:1;height:2px;border-radius:2px;background:var(--line);overflow:hidden}
+.rail-bar span{display:block;height:100%;width:0;background:var(--bordo);transition:width .3s var(--ease)}
+.rail-hint{white-space:nowrap}
 .fine{margin-top:26px;font-size:.84rem;color:var(--muted);max-width:52em}
 
 /* cum se desfășoară */
@@ -176,16 +189,35 @@ body.is-ready .next{transition-delay:.52s}
 .steps h3{font-size:1.6rem;font-weight:400;margin-bottom:6px}
 .steps p{color:var(--cocoa);font-size:.96rem;max-width:34em}
 
-/* calendar */
-.cal-grid{display:grid;gap:12px}
-.mcard{position:relative;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:24px;border-radius:var(--radius);background:var(--white);box-shadow:0 0 0 1px var(--line);overflow:hidden;font-variant-numeric:lining-nums;
-  transition-property:transform,box-shadow;transition-duration:.3s;transition-timing-function:var(--ease)}
-.mcard:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--line),0 24px 40px -28px rgba(43,32,27,.45)}
-.mcard .mnum{grid-row:span 3;font-family:var(--serif);font-weight:300;font-size:3.4rem;line-height:.9;color:var(--nude)}
-.mcard h3{font-size:1.7rem;font-weight:400}
-.mline{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;font-size:.92rem}
-.mline small{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--caramel);min-width:78px}
-.seats{position:absolute;top:18px;right:18px;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--bordo)}
+/* calendar: agendă pe fond închis, zilele în cerculețe */
+.cal{position:relative;color:var(--white);background:var(--ink);box-shadow:0 0 0 100vmax var(--ink);clip-path:inset(0 -100vmax)}
+.cal .kicker{color:var(--nude)}
+.cal h2 em{color:var(--nude)}
+.cal .sec-sub{color:rgba(255,253,251,.68)}
+.agenda{list-style:none;display:grid;gap:12px}
+.mrow{position:relative;display:grid;gap:16px;padding:22px 20px;border-radius:22px;background:rgba(255,253,251,.04);box-shadow:inset 0 0 0 1px var(--line-l);font-variant-numeric:lining-nums}
+.mrow.is-next{background:var(--bordo);box-shadow:0 30px 60px -36px rgba(0,0,0,.7)}
+.mhead{display:flex;align-items:baseline;gap:12px}
+.mhead .mn{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--nude)}
+.mhead h3{font-size:2.3rem;font-weight:300;letter-spacing:.02em}
+.mhead .my{font-size:.72rem;letter-spacing:.2em;color:rgba(255,253,251,.5)}
+.mflag{position:static;order:-1;justify-self:start;margin-bottom:-6px;padding:5px 11px;border-radius:999px;background:var(--white);color:var(--bordo);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.mgroup{display:grid;gap:10px}
+.mgroup>small{display:flex;justify-content:space-between;gap:10px;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--nude)}
+.mgroup>small em{font-style:normal;letter-spacing:.06em;text-transform:none;font-weight:500;color:rgba(255,253,251,.55)}
+.days{display:flex;flex-wrap:wrap;gap:8px}
+.day{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,253,251,.28);line-height:1}
+.day b{font-family:var(--serif);font-weight:400;font-size:1.45rem}
+.day small{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,253,251,.6);margin-top:-6px}
+.days--ext .day{background:rgba(255,253,251,.08)}
+.mrow.is-next .day{box-shadow:inset 0 0 0 1px rgba(255,253,251,.45)}
+.mrow.is-next .days--ext .day{background:var(--white);color:var(--bordo);box-shadow:none}
+.mrow.is-next .days--ext .day small{color:var(--caramel)}
+.mrow.is-next .mhead .mn,.mrow.is-next .mgroup>small{color:#f3dcd2}
+.cal-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line-l);color:rgba(255,253,251,.68);font-size:.9rem}
+.cal-foot p{max-width:34em}
+.cal-foot .btn-ghost{color:var(--white)}
+.cal-foot .btn-ghost:hover{background:var(--white);border-color:var(--white);color:var(--ink)}
 
 /* rezultate */
 .reel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--pad)*-1);padding:0 var(--pad) 16px;scrollbar-width:thin}
@@ -311,12 +343,7 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
   .stats{grid-template-columns:repeat(4,1fr)}
   .vid{flex-basis:32%}
   .mosaic{grid-template-columns:repeat(3,1fr)}
-  .cal-grid{grid-template-columns:repeat(2,1fr)}
   .row2{grid-template-columns:1fr 1fr}
-  .crow{grid-template-columns:96px 1fr auto;padding:26px 0}
-  .crow-thumb{width:96px}
-  .crow-price{grid-column:3;grid-row:1/span 3;align-self:center;flex-direction:column;align-items:flex-end;text-align:right;margin:0}
-  .crow-price small{width:auto}
 }
 
 /* desktop: poza ei pe dreapta, se topește în fundal */
@@ -344,24 +371,9 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
   .sec-head{grid-template-columns:1fr 1fr;align-items:end;gap:60px}
   .sec-sub{justify-self:end}
   .courses,.cal,.results{padding:130px var(--pad)}
-  .crow{grid-template-columns:56px 120px minmax(0,1fr) 210px 190px 56px;align-items:center;gap:0 28px;padding:26px 18px;margin:0 -18px;border-radius:var(--radius);border-bottom-color:transparent;box-shadow:0 1px 0 var(--line)}
-  .crow:hover{background:var(--white)}
-  .crow-num{display:block;grid-row:1/span 3;font-family:var(--serif);font-style:italic;font-size:1.6rem;color:var(--nude);font-variant-numeric:lining-nums}
-  .crow-thumb{grid-row:1/span 3;width:120px}
-  .crow-meta,.crow h3{grid-column:3}
-  .crow h3{font-size:2.3rem}
-  .crow-next{grid-column:4;grid-row:1/span 3}
-  .crow-price{grid-column:5;grid-row:1/span 3}
-  .crow-price b{font-size:2rem}
-  .crow-go{display:grid;place-items:center;grid-column:6;grid-row:1/span 3;width:52px;height:52px;border-radius:50%;border:1px solid var(--line);transition-property:background-color,color,transform,border-color;transition-duration:.3s;transition-timing-function:var(--ease)}
-  .crow:hover .crow-go{background:var(--bordo);border-color:var(--bordo);color:var(--white);transform:rotate(-45deg)}
   .exp{grid-template-columns:.8fr 1.2fr;gap:100px;align-items:center;padding:130px var(--pad)}
   .exp>*{max-width:none}
   .exp-media{position:sticky;top:110px;align-self:start}
-  .cal-grid{grid-template-columns:repeat(3,1fr)}
-  .mcard:first-child{grid-column:span 2;background:var(--bordo);color:var(--white);box-shadow:none}
-  .mcard:first-child .mnum{color:var(--nude)}
-  .mcard:first-child .mline small,.mcard:first-child .seats{color:var(--nude)}
   .vid{flex-basis:calc(20% - 12px)}
   .mosaic{grid-template-columns:repeat(4,1fr)}
   .practice{grid-template-columns:1.05fr .95fr;gap:90px;padding:130px var(--pad)}
@@ -381,4 +393,22 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .js .reveal,.js .hero-in{opacity:1;transform:none;filter:none}
   .hero-media img{transform:none}
+}
+
+/* cursuri + calendar: tabletă și desktop */
+@media (min-width:720px){
+  .course-rail{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;overflow:visible;margin:6px 0 0;padding:6px 0 0}
+  .ccard{flex:none}
+  .rail-meta{display:none}
+  .mrow{grid-template-columns:200px 1fr 1fr;align-items:center;gap:24px;padding:24px 28px}
+  .mhead{flex-direction:column;gap:2px}
+  .mflag{position:absolute;top:auto;bottom:22px;left:28px;right:auto;margin:0}
+  .mrow.is-next{padding-bottom:58px}
+}
+@media (min-width:1024px){
+  .course-rail{grid-template-columns:repeat(3,1fr);gap:22px}
+  .ccard h3{font-size:1.95rem}
+  .mrow{grid-template-columns:240px 1.2fr 1fr;padding:28px 36px}
+  .mhead h3{font-size:2.8rem}
+  .mflag{left:36px}
 }
