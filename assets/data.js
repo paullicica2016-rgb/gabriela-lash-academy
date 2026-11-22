@@ -101,7 +101,7 @@ window.GLA = {
     {
       id: "russian", group: "spec", name: "Russian Volume 10-20D", tag: "1 zi · specializare",
       days: "1 zi", price: 2500, advance: 500, full: 2100, addons: [], dates: "la-cerere",
-      img: "r-0017",
+      img: "r-volum",
       lead: "Arta volumelor spectaculoase începe cu tehnica și precizia fiecărui evantai.",
       intro: [
         "Cursul este destinat tehnicienelor de gene care vor să își aprofundeze cunoștințele și să învețe volumele mari, cu evantaie handmade.",
@@ -248,14 +248,14 @@ window.GLA = {
       audience: "Pentru tehniciene care au urmat deja cursuri de specializare.", accredited: false
     }
   ],
-  next: { extensii: "30 ian – 1 feb 2027", laminare: "18 ianuarie 2027", "la-cerere": "Programare la cerere" },
+  next: { extensii: "27 feb – 1 mar 2027", laminare: "18 ianuarie 2027", "la-cerere": "Programare la cerere" },
   calendar: [
-    { m: "Ianuarie 2027", ext: "30, 31 ianuarie și 1 februarie", lam: ["18 ianuarie", "25 ianuarie"] },
+    { m: "Ianuarie 2027", ext: "30, 31 ianuarie și 1 februarie", extFull: true, lam: ["18 ianuarie", "25 ianuarie"] },
     { m: "Februarie 2027", ext: "27, 28 februarie și 1 martie", lam: ["15 februarie", "22 februarie"] },
     { m: "Martie 2027", ext: "27, 28 și 29 martie", lam: ["22 martie"] },
     { m: "Aprilie 2027", ext: "24, 25 și 26 aprilie", lam: ["19 aprilie"] },
     { m: "Mai 2027", ext: "29, 30 și 31 mai", lam: ["24 mai"] }
   ],
-  gallery: ["r-0013", "r-0014", "r-0015", "r-0017", "r-0020", "r-0011", "r-0012", "r-0016", "r-0018", "r-0019", "r-9974", "r-9976", "r-9991", "r-9994"],
+  gallery: ["r-volum", "r-0013", "r-0014", "r-0015", "r-0017", "r-0020", "r-0011", "r-0012", "r-0016", "r-0018", "r-0019", "r-9974", "r-9976", "r-9991", "r-9994"],
   videos: ["2048", "5574", "5577", "5640", "5691"]
 };

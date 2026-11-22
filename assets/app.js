@@ -85,7 +85,7 @@
     <li class="mrow reveal${i === 0 ? " is-next" : ""}">
       <div class="mhead"><span class="mn">${String(i + 1).padStart(2, "0")}</span><h3>${month}</h3><span class="my">2027</span></div>
       ${i === 0 ? '<span class="mflag">Următoarea grupă</span>' : ""}
-      <div class="mgroup"><small>Extensii 1-3D <em>${r.ext}</em></small><div class="days days--ext" aria-label="Extensii: ${esc(r.ext)}">${dayHtml(ext)}</div></div>
+      <div class="mgroup${r.extFull ? " is-full" : ""}"><small>Extensii 1-3D <em>${r.extFull ? '<b class="mfull">Locuri ocupate</b>' : r.ext}</em></small><div class="days days--ext" aria-label="Extensii: ${esc(r.ext)}${r.extFull ? ", locuri ocupate" : ""}">${dayHtml(ext)}</div></div>
       <div class="mgroup"><small>Laminare <em>2 locuri / grupă</em></small><div class="days" aria-label="Laminare: ${esc(r.lam.join(", "))}">${dayHtml(lam)}</div></div>
     </li>`;
   }).join("");
@@ -158,7 +158,7 @@
 
   /* booking */
   const f = $("#bookForm");
-  const datesFor = c => c.dates === "extensii" ? G.calendar.map(r => `${r.ext} 2027`)
+  const datesFor = c => c.dates === "extensii" ? G.calendar.filter(r => !r.extFull).map(r => `${r.ext} 2027`)
     : c.dates === "laminare" ? G.calendar.flatMap(r => r.lam.map(d => `${d} 2027`))
     : ["Stabilim data împreună"];
   function openBook(id) {
