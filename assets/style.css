@@ -327,13 +327,14 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
 /* telefon și tabletă: poza sus (fața la vedere), textul dedesubt */
 @media (max-width:1023px){
   .hero{display:block;min-height:0;padding:0 0 56px}
-  .hero-media{position:relative;inset:auto;height:min(72svh,640px);z-index:0}
-  .hero-media img{object-position:62% 18%}
-  .hero-media::after{background:linear-gradient(180deg,rgba(36,26,21,.55) 0%,rgba(36,26,21,0) 20%,rgba(36,26,21,0) 55%,rgba(36,26,21,.85) 85%,var(--night) 100%)}
-  .hero-copy{margin-top:-150px;padding:0 var(--pad);z-index:1}
+  .hero-media{position:relative;inset:auto;height:min(calc(64px + 177vw),900px);z-index:0}
+  .hero-media{padding-top:64px;background:var(--night)}
+  .hero-media img{object-position:62% 0%}
+  .hero-media::after{background:linear-gradient(180deg,rgba(36,26,21,.5) 0%,rgba(36,26,21,0) 14%,rgba(36,26,21,0) 58%,rgba(36,26,21,.5) 78%,var(--night) 100%)}
+  .hero-copy{margin-top:calc(-1 * min(68vw,300px));padding:0 var(--pad);z-index:1}
   .hero-title{font-size:clamp(2.7rem,12.4vw,5.6rem)}
   .hero-actions .btn{flex:1 1 auto;padding:0 20px}
-  .seal{top:calc(min(72svh,640px) - 250px);right:16px;width:96px;height:96px}
+  .seal{top:calc(64px + 70vw);left:14px;right:auto;width:92px;height:92px}
   .seal text{font-size:9.8px}
   .seal-core b{font-size:2rem}
 }
@@ -363,7 +364,7 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
     linear-gradient(180deg,rgba(36,26,21,.5) 0%,rgba(36,26,21,0) 20%,rgba(36,26,21,0) 75%,rgba(36,26,21,.7) 100%)}
   .hero-copy{max-width:680px}
   .hero-title{font-size:clamp(4.4rem,7.6vw,7.8rem)}
-  .seal{top:auto;bottom:clamp(110px,16vh,150px);width:140px;height:140px}
+  .seal{top:auto;bottom:clamp(60px,10vh,110px);right:auto;left:44%;width:140px;height:140px}
   .seal text{font-size:9px}
 
   .about{grid-template-columns:.8fr 1.2fr;gap:96px;align-items:center;padding:130px var(--pad)}
@@ -411,36 +412,4 @@ legend{font-size:.78rem;font-weight:600;color:var(--cocoa);margin-bottom:8px}
   .mrow{grid-template-columns:240px 1.2fr 1fr;padding:28px 36px}
   .mhead h3{font-size:2.8rem}
   .mflag{left:36px}
-}
-
-/* ---------- Hero Colaj: ea + lucrările ei (ales de Paul, 22 nov) ---------- */
-.hero-light .nav:not(.scrolled){color:var(--ink)}
-.hero-light .nav:not(.scrolled) .logo-script{color:var(--bordo)}
-.hero.hv-g{display:block;min-height:0;padding:100px var(--pad) 56px;background:var(--sand);color:var(--ink)}
-.hv-g .eyebrow{color:var(--caramel)}
-.hv-g .hero-title{font-size:clamp(2.7rem,12.2vw,6.4rem);color:var(--ink)}
-.hv-g .hero-script{color:var(--bordo)}
-.hvg-collage{position:relative;display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:10px;margin:26px 0 28px;aspect-ratio:1/1.02}
-.hvg-collage figure{position:relative;margin:0;border-radius:18px;overflow:hidden;background:var(--nude)}
-.hvg-collage img{width:100%;height:100%;object-fit:cover}
-.hvg-main{grid-row:1/3}
-.hvg-main img{object-position:50% 12%}
-.hvg-collage figcaption{position:absolute;left:10px;bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(255,253,251,.9);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.hvg-stat{position:absolute;left:-6px;top:-14px;display:grid;justify-items:center;padding:12px 14px;border-radius:16px;background:var(--bordo);color:var(--white);line-height:1;box-shadow:0 18px 30px -16px rgba(43,32,27,.7);transform:rotate(-4deg)}
-.hvg-stat b{font-family:var(--serif);font-weight:400;font-size:2rem;font-variant-numeric:lining-nums}
-.hvg-stat small{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;margin-top:4px;color:var(--nude)}
-.hv-g .hero-slogan em{color:var(--bordo)}
-.hv-g .hero-lead{color:var(--cocoa)}
-.hv-g .btn-ghost{color:var(--ink)}
-.hv-g .btn-ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--white)}
-.hv-g .next{border-top-color:var(--line);color:var(--cocoa)}
-.hv-g .next-label{color:var(--caramel)}
-.hv-g .next-item b{color:var(--ink)}
-.hv-g .seal{top:auto;right:-10px;bottom:-20px;width:96px;height:96px}
-@media (min-width:1024px){
-  .hero.hv-g{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;column-gap:72px;align-items:center;min-height:100svh;padding-top:120px}
-  .hvg-head{grid-column:1}
-  .hvg-collage{grid-column:2;grid-row:1/3;margin:0;max-height:76svh;aspect-ratio:1/1.05;justify-self:end;width:100%}
-  .hvg-rest{grid-column:1;align-self:start}
-  .hv-g .seal{width:130px;height:130px}
 }
