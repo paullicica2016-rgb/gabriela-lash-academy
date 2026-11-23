@@ -2,9 +2,9 @@
 window.GLA = {
   config: {
     whatsapp: "40729956692",
-    // Când e gata contul de plată (Stripe), se pune aici adresa funcției de checkout.
-    // Până atunci cererile merg pe WhatsApp către Gabriela.
-    checkoutEndpoint: "",
+    // Funcția de plată Stripe (api/checkout.js, rulează pe Vercel).
+    // Unde funcția nu există (ex. GitHub Pages), rezervarea merge automat pe WhatsApp.
+    checkoutEndpoint: "api/checkout",
     leadEndpoint: ""
   },
   addons: {

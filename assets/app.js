@@ -220,10 +220,21 @@
     const btn = $("#bookSubmit");
     if (G.config.checkoutEndpoint) {
       btn.disabled = true; btn.firstChild.textContent = "Se pregătește plata... ";
+      const reset = () => { btn.disabled = false; btn.firstChild.textContent = "Continuă către plată "; };
+      let r = null;
       try {
-        const r = await fetch(G.config.checkoutEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) });
-        const j = await r.json(); if (!j.url) throw 0; location.href = j.url; return;
-      } catch { msg.textContent = "Nu am putut deschide plata. Încearcă din nou sau scrie-ne pe WhatsApp."; msg.className = "form-msg err"; btn.disabled = false; btn.firstChild.textContent = "Continuă către plată "; return; }
+        r = await fetch(G.config.checkoutEndpoint, { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ curs_id: c.id, data: p.data, efect: p.efect, optiuni: addons, plata: mode, nume: p.nume, telefon: p.telefon, email: p.email }) });
+      } catch { r = null; }
+      // Plata online nu există pe găzduirea asta (ex. GitHub Pages): continuăm pe WhatsApp, ca înainte.
+      const noEndpoint = !r || r.status === 404 || r.status === 405 || (r.headers.get("content-type") || "").indexOf("json") < 0;
+      if (!noEndpoint) {
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.url) { location.href = j.url; return; }
+        msg.textContent = r.status === 400 ? "Verifică datele rezervării și încearcă din nou." : "Nu am putut deschide plata. Încearcă din nou sau scrie-ne pe WhatsApp.";
+        msg.className = "form-msg err"; reset(); return;
+      }
+      reset();
     }
     const text = `Bună, Gabriela! Vreau să rezerv locul la: ${p.curs} (${p.durata})\nData: ${p.data}${p.efect ? `\nEfect: ${p.efect}` : ""}${p.optiuni.length ? `\nOpțiuni: ${p.optiuni.join(", ")}` : ""}\nPlata: ${mode === "avans" ? "avans" : "integral"} ${lei(now)}\nNume: ${p.nume}\nTelefon: ${p.telefon}\nEmail: ${p.email}`;
     msg.textContent = "Se deschide WhatsApp cu cererea ta. Gabriela îți confirmă locul și detaliile de plată.";
