@@ -247,6 +247,11 @@ window.GLA = {
         "Corectarea greșelilor și recomandări personalizate", "Feedback direct pentru evoluția ta profesională"],
       audience: "Pentru tehniciene care au urmat deja cursuri de specializare.", accredited: false
     }
+    ,
+    // TEMPORAR: plată de test reală de 2 lei, ascunsă. Se deschide doar cu ?testplata. DE ȘTERS după test.
+    { id: "test-plata", hidden: true, group: "test", name: "Test plată (nu e curs)", tag: "test", days: "test",
+      price: 2, advance: 2, full: 2, addons: [], dates: "la-cerere", img: "r-volum",
+      lead: "", intro: [], sections: [], gets: [], audience: "", accredited: false }
   ],
   next: { extensii: "27 feb – 1 mar 2027", laminare: "18 ianuarie 2027", "la-cerere": "Programare la cerere" },
   calendar: [

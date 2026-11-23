@@ -27,7 +27,7 @@
   /* courses */
   const priceLabel = c => c.priceMax ? `${new Intl.NumberFormat("ro-RO").format(c.price)}–${lei(c.priceMax)}` : lei(c.price);
   function renderCourses(filter = "all") {
-    const list = G.courses.filter(c => filter === "all" || c.group === filter);
+    const list = G.courses.filter(c => !c.hidden && (filter === "all" || c.group === filter));
     const rail = $("#courseList");
     rail.innerHTML = list.map((c, i) => `
       <li class="ccard" data-details="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)}, ${esc(c.days)}. Vezi detalii">
@@ -165,7 +165,7 @@
     const c = byId(id);
     if (c.request) { cd.close(); bd.close(); $("#practica").scrollIntoView({ behavior: "smooth" }); setTimeout(() => $("#practiceForm select").focus({ preventScroll: true }), 700); return; }
     cd.close();
-    $("#bookCourse").innerHTML = G.courses.filter(x => !x.request).map(x => `<option value="${x.id}">${esc(x.name)} · ${esc(x.days)}</option>`).join("");
+    $("#bookCourse").innerHTML = G.courses.filter(x => !x.request && (!x.hidden || x.id === id)).map(x => `<option value="${x.id}">${esc(x.name)} · ${esc(x.days)}</option>`).join("");
     $("#bookCourse").value = id;
     refreshBook(); $("#bookMsg").textContent = ""; $("#bookMsg").className = "form-msg";
     bd.showModal(); bd.scrollTop = 0;
@@ -259,4 +259,5 @@
   $$("input,select,textarea").forEach(el => el.addEventListener("input", () => { el.classList.remove("invalid"); el.removeAttribute("aria-invalid"); }));
 
   watch(document);
+  if (/[?&]testplata(=|&|$)/.test(location.search)) openBook("test-plata");
 })();
